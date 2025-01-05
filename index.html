@@ -21,9 +21,9 @@
         const messageDisplay = document.getElementById('patience-message');
 
         const messages = {
-            0: "Dan has zero patience! Take a deep breath!",
+            0: "Dan is officially done!",
             1: "Dan's patience is wearing very thin",
-            2: "Dan's barely hanging on",
+            2: "Dan needs to check his blood pressure",
             3: "Dan could use some more patience",
             4: "Dan's patience is below average",
             5: "Dan's patience level is moderate",
@@ -56,7 +56,8 @@
         const urlParams = new URLSearchParams(window.location.search);
         const levelParam = urlParams.get('level');
         if (levelParam !== null) {
-            const level = Math.min(Math.max(parseInt(levelParam) || 5, 0), 10);
+            const parsedLevel = parseInt(levelParam);
+            const level = Math.min(Math.max(isNaN(parsedLevel) ? 5 : parsedLevel, 0), 10);
             slider.value = level;
             updateDisplay(level);
         }
