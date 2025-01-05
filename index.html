@@ -3,18 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GitHub Pages Site</title>
+    <title>Patience Meter</title>
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome to My GitHub Pages Site</h1>
-    </header>
-    <main>
-        <p>This is a simple GitHub Pages website.</p>
-    </main>
-    <footer>
-        <p>&copy; 2024 Your Name</p>
-    </footer>
+    <div class="meter-container">
+        <label for="patience-slider">Patience Level</label>
+        <input type="range" id="patience-slider" min="0" max="10" value="5" step="1">
+        <div class="patience-display">
+            <span id="patience-value">5</span>/10
+        </div>
+        <div id="patience-message">Your patience level is moderate</div>
+    </div>
+    <script>
+        const slider = document.getElementById('patience-slider');
+        const valueDisplay = document.getElementById('patience-value');
+        const messageDisplay = document.getElementById('patience-message');
+
+        const messages = {
+            0: "Dan has zero patience! Take a deep breath!",
+            1: "Dan's patience is wearing very thin",
+            2: "Dan's barely hanging on",
+            3: "Dan could use some more patience",
+            4: "Dan's patience is below average",
+            5: "Dan's patience level is moderate",
+            6: "Dan's showing good patience",
+            7: "Dan's quite patient",
+            8: "Dan has great patience!",
+            9: "Dan's extremely patient!",
+            10: "Dan has achieved zen-like patience!"
+        };
+
+        function getColor(value) {
+            value = parseInt(value);
+            if (value <= 3) return '#ff4444';  // Red
+            if (value <= 7) return '#ffaa00';  // Yellow
+            return '#4CAF50';  // Green
+        }
+
+        function updateDisplay(value) {
+            const color = getColor(value);
+            valueDisplay.textContent = value;
+            messageDisplay.textContent = messages[value];
+            document.documentElement.style.setProperty('--patience-color', color);
+            document.documentElement.style.setProperty('--patience-level', value * 10 + '%');
+        }
+
+        // Initial update
+        updateDisplay(slider.value);
+
+        // Get level from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const levelParam = urlParams.get('level');
+        if (levelParam !== null) {
+            const level = Math.min(Math.max(parseInt(levelParam) || 5, 0), 10);
+            slider.value = level;
+            updateDisplay(level);
+        }
+
+        slider.addEventListener('input', function() {
+            updateDisplay(this.value);
+        });
+    </script>
 </body>
 </html> 
