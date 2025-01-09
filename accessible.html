@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dan's Patience Level - Accessible View</title>
+    <style>
+        :root {
+            --patience-color: #ffaa00;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        .meter-container {
+            background: rgb(17, 17, 17);
+            color:white;
+            display:flex;
+            flex-direction:row;
+            align-items:center;
+            justify-content:center;
+            border-radius: 1rem;
+            text-align: center;
+            overflow: hidden;
+            border-width: 8px;
+            border-color: var(--patience-color);
+            border-style: solid;
+        }
+
+        #patience-display {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            background-color: var(--patience-color);
+            max-width: 130px;
+            min-width: 130px;
+        }
+
+        #patience-message {
+            max-width: 250px;
+            min-width: 250px;
+            font-weight: bold;
+            padding-left:0.5rem;
+            padding-right:0.5rem;
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            color: white;
+        }
+
+       
+    </style>
+</head>
+<body>
+    <div class="meter-container">
+        <div id="patience-message">Dan's patience level is moderate</div>
+        <div id="patience-display">
+            <span id="patience-value">5</span>/10
+        </div>
+    </div>
+    <script>
+        const valueDisplay = document.getElementById('patience-value');
+        const messageDisplay = document.getElementById('patience-message');
+
+        const messages = {
+            0: "Dan is officially done!",
+            1: "Dan's patience is wearing very thin",
+            2: "Dan needs to check his blood pressure",
+            3: "Dan could use some more patience",
+            4: "Dan's patience is below average",
+            5: "Dan's patience level is moderate",
+            6: "Dan's showing good patience",
+            7: "Dan's quite patient",
+            8: "Dan has great patience!",
+            9: "Dan's extremely patient!",
+            10: "Dan has achieved zen-like patience!"
+        };
+
+        function getColor(value) {
+            value = parseInt(value);
+            if (value <= 3) return '#ff4444';  // Red
+            if (value <= 7) return '#ffaa00';  // Yellow
+            return '#4CAF50';  // Green
+        }
+
+        function updateDisplay(value) {
+            const color = getColor(value);
+            valueDisplay.textContent = value;
+            messageDisplay.textContent = messages[value];
+            document.documentElement.style.setProperty('--patience-color', color);
+        }
+
+        // Get level from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const levelParam = urlParams.get('level');
+        const level = Math.min(Math.max(isNaN(parseInt(levelParam)) ? 5 : parseInt(levelParam), 0), 10);
+        updateDisplay(level);
+    </script>
+</body>
+</html> 
