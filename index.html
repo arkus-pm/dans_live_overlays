@@ -1,37 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patience Meter</title>
-    <link rel="stylesheet" href="styles/main.css">
-</head>
-<body>
-    <div class="meter-container">
-        <label for="patience-slider">Patience Level</label>
-        <input type="range" id="patience-slider" min="0" max="10" value="5" step="1">
-        <div class="patience-display">
-            <span id="patience-value">5</span>/10
-        </div>
-        <div id="patience-message">Your patience level is moderate</div>
-    </div>
-    <script>
+    <head>
+        <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Patience Meter</title>
+                <link rel="stylesheet" href="styles/main.css">
+                </head>
+                <body>
+                    <div class="meter-container">
+                        <div class="meter-header">
+                            <p>Patience Level</p>
+                            <p>
+                                <span id="patience-value">5</span>/10</p>
+                        </div>
+                        <input type="range" id="patience-slider" min="0" max="10" value="5" step="1">
+                            <div id="patience-message">Your patience level is moderate</div>
+                        </div>
+                        <script>
         const slider = document.getElementById('patience-slider');
         const valueDisplay = document.getElementById('patience-value');
         const messageDisplay = document.getElementById('patience-message');
 
         const messages = {
-            0: "Dan is officially done!",
-            1: "Dan's patience is wearing very thin",
+            0: "Dan jumped off electric boat to sharks 🦈",
+            1: "Dan's about to eat the dogs, to eat the cats",
             2: "Dan needs to check his blood pressure",
-            3: "Dan could use some more patience",
-            4: "Dan's patience is below average",
-            5: "Dan's patience level is moderate",
-            6: "Dan's showing good patience",
-            7: "Dan's quite patient",
-            8: "Dan has great patience!",
-            9: "Dan's extremely patient!",
-            10: "Dan has achieved zen-like patience!"
+            3: "Dan is getting spicy 🌶️",
+            4: "This guest found a hot spot, keep it going!",
+            5: "The sea is getting rough, but Dan is still patient",
+            6: "Dan exists in the context",
+            7: "Dan's warming up his patience, but still good",
+            8: "Dan's ready to handle the heat",
+            9: "Dan's would be able to handle Liam with this patience!",
+            10: "Dan is cool enought to revert global warming!"
         };
 
         function getColor(value) {
@@ -47,6 +48,21 @@
             messageDisplay.textContent = messages[value];
             document.documentElement.style.setProperty('--patience-color', color);
             document.documentElement.style.setProperty('--patience-level', value * 10 + '%');
+            
+            // Remove all shake classes first
+            const container = document.querySelector('.meter-container');
+            container.classList.remove('shake-light', 'shake-medium', 'shake-intense', 'no-shake');
+            
+            // Apply appropriate shake class based on patience level
+            if (value === 3) {
+                container.classList.add('shake-light');
+            } else if (value === 2) {
+                container.classList.add('shake-medium');
+            } else if (value === 1) {
+                container.classList.add('shake-intense');
+            } else if (value === 0) {
+                container.classList.add('no-shake');
+            }
         }
 
         // Initial update
