@@ -49,20 +49,6 @@
             document.documentElement.style.setProperty('--patience-color', color);
             document.documentElement.style.setProperty('--patience-level', value * 10 + '%');
             
-            // Remove all shake classes first
-            const container = document.querySelector('.meter-container');
-            container.classList.remove('shake-light', 'shake-medium', 'shake-intense', 'no-shake');
-            
-            // Apply appropriate shake class based on patience level
-            if (value === 3) {
-                container.classList.add('shake-light');
-            } else if (value === 2) {
-                container.classList.add('shake-medium');
-            } else if (value === 1) {
-                container.classList.add('shake-intense');
-            } else if (value === 0) {
-                container.classList.add('no-shake');
-            }
         }
 
         // Initial update
